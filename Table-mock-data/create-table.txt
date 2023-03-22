@@ -1,0 +1,19 @@
+// user table
+
+create table User (
+
+)
+
+
+//  Fahrt table
+
+create table Fahrt (
+
+)
+
+
+//  Bestellung table
+
+create table Bestellung (
+
+)

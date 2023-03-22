@@ -1,0 +1,19 @@
+// user table
+
+insert into User (
+
+)
+
+
+//  Fahrt table
+
+insert into Fahrt (
+
+)
+
+
+//  Bestellung table
+
+insert into Bestellung (
+
+)
