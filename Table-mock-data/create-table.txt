@@ -1,19 +1,27 @@
-// user table
+use campusdeliverydata;
 
-create table User (
+CREATE TABLE user (
+    username varchar(20),
+    email varchar(30),
+    password varchar(20),
+    firstname varchar(20),
+    lastname varchar(20),
+    numberOfDeliveries int,
+    class varchar(10),
+    PRIMARY KEY(username,email)
+);
 
-)
+use campusdeliverydata;
+CREATE TABLE delivery (
+    user varchar(50),
+    shop varchar(20) NOT NULL ,
+    date date,
+    time time,
+    PRIMARY KEY (user,date,time),
+    FOREIGN KEY (user) REFERENCES  user (username, email)
+);
 
-
-//  Fahrt table
-
-create table Fahrt (
-
-)
-
-
-//  Bestellung table
-
-create table Bestellung (
-
-)
+CREATE TABLE order (
+    id int,
+    FOREIGN KEY (20)
+);
