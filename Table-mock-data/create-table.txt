@@ -1,34 +1,42 @@
 use campusdeliverydata;
+drop table delivery;
+drop table ordering;
 
 create table user(
+                    id int,
                      username varchar(20),
                      email varchar(30),
-                     password varchar(20),
+                     userPassword varchar(20),
                      firstname varchar(20),
                      lastname varchar(20),
                      numberOfDeliveries int,
                      class varchar(10),
-                     primary key (username, email)
+                     primary key (id)
 );
 
 create table ordering(
         id int,
         delivery varchar(60),
-        user varchar(50),
+        userID int,
         product varchar(15),
         quantity int,
         price double,
-        status varchar(15),
+        currentStatus varchar(15),
         PRIMARY KEY (id),
-        FOREIGN KEY (user) REFERENCES user(username)
+        FOREIGN KEY (userID) REFERENCES user(id)
 );
 
 create table delivery(
-    user varchar(50),
+    id int,
+    userID int,
     shop varchar(20) NOT NULL,
-    date date,
-    time time,
-    PRIMARY KEY (user,date,time),
-    FOREIGN KEY (user) REFERENCES user(username)
-)
+    deliveryDate date,
+    deliveryTime time,
+    PRIMARY KEY (id),
+    FOREIGN KEY (userID) REFERENCES user(id)
+);
+
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES ('srotoc20','iLoveStella','srotoc20@htl-kaindorf.at','Tobias','Schroettner',1, 'chif20');
+
+
 
