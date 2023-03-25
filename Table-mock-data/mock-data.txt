@@ -6,6 +6,9 @@ insert into User (
 
 INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (1,'srotoc20','srotoc20@htl-kaindorf.at','iLoveS','Tobias','Schroettner',1, 'chif20');
 INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (2,'oberfelli','hocluc20@htl-kaindorf.at','1234','Lukas','Hochfellner',0, 'chif20');
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (3,'edesec20','edesec20@htl-kaindorf.at','password','Selina','Edelsbrunner',6, 'chif20');
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (4,'sim_on','bausid23@htl-kaindorf.at','#1i2c','Simon','Bauer',0, 'dhif20');
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (5,'user20','trudam18@htl-kaindorf.at','abcd','Trummer','David',5, 'ahme18');
 
 
 
