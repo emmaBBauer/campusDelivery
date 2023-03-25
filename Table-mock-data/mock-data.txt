@@ -1,10 +1,12 @@
 // user table
 
 insert into User (
+
+)
+
 INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (1,'srotoc20','srotoc20@htl-kaindorf.at','iLoveS','Tobias','Schroettner',1, 'chif20');
 INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (2,'oberfelli','hocluc20@htl-kaindorf.at','1234','Lukas','Hochfellner',0, 'chif20');
 
-)
 
 
 //  Fahrt table
