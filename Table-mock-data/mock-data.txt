@@ -1,26 +1,40 @@
-// user table
+use campusdeliverydata;
 
-insert into User (
-
-)
-
-INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (1,'srotoc20','srotoc20@htl-kaindorf.at','iLoveS','Tobias','Schroettner',1, 'chif20');
-INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (2,'oberfelli','hocluc20@htl-kaindorf.at','1234','Lukas','Hochfellner',0, 'chif20');
-INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (3,'edesec20','edesec20@htl-kaindorf.at','password','Selina','Edelsbrunner',6, 'chif20');
-INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (4,'sim_on','bausid23@htl-kaindorf.at','#1i2c','Simon','Bauer',0, 'dhif20');
-INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES (5,'user20','trudam18@htl-kaindorf.at','abcd','Trummer','David',5, 'ahme18');
-
-
-
-//  Fahrt table
-
-insert into Fahrt (
-
-)
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class)
+VALUES (1,'srotoc20','srotoc20@htl-kaindorf.at','iLoveS','Tobias','Schroettner',1, 'chif20');
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class)
+VALUES (2,'oberfelli','hocluc20@htl-kaindorf.at','1234','Lukas','Hochfellner',0, 'chif20');
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class)
+VALUES (3,'edesec20','edesec20@htl-kaindorf.at','password','Selina','Edelsbrunner',6, 'chif20');
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class)
+VALUES (4,'sim_on','bausid23@htl-kaindorf.at','#1i2c','Simon','Bauer',0, 'dhif20');
+INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class)
+VALUES (5,'user20','trudam18@htl-kaindorf.at','abcd','Trummer','David',5, 'ahme18');
 
 
-//  Bestellung table
 
-insert into Bestellung (
+INSERT INTO campusdeliverydata.delivery (id, userID, shop, deliveryDate, deliveryTime)
+VALUES (1, 1, 'Billa', DATE('12.12.2022'), TIME('12:45'));
+INSERT INTO campusdeliverydata.delivery (id, userID, shop, deliveryDate, deliveryTime)
+VALUES (2, 2, 'Spar', DATE('02.02.2022'), TIME('12:45'));
+INSERT INTO campusdeliverydata.delivery (id, userID, shop, deliveryDate, deliveryTime)
+VALUES (3, 3, 'McDonalds', DATE('30.06.2022'), TIME('12:45'));
+INSERT INTO campusdeliverydata.delivery (id, userID, shop, deliveryDate, deliveryTime)
+VALUES (4, 4, 'Döner', DATE('22.11.2022'), TIME('12:45'));
+INSERT INTO campusdeliverydata.delivery (id, userID, shop, deliveryDate, deliveryTime)
+VALUES (5, 5, 'Bipa', DATE('27.10.2022'), TIME('12:45'));
 
-)
+
+
+INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus)
+VALUES (1, 1, 1, 'Sandwitch', 2, 4.50, 'accepted');
+INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus)
+VALUES (2, 2, 2, 'Haribo', 3, 5.10, 'declined');
+INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus)
+VALUES (3, 3, 3, 'Big Mac', 1, 3.20, 'accepted');
+INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus)
+VALUES (4, 4, 4, 'Döner scharf', 5, 25.00, 'waiting');
+INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus)
+VALUES (5, 5, 5, 'Salat mit Pommes', 10, 34.25, 'declined');
+
+

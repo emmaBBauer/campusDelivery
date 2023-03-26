@@ -1,42 +1,49 @@
 use campusdeliverydata;
-drop table delivery;
-drop table ordering;
+DROP TABLE IF EXISTS  ordering, delivery, user;
+
 
 create table user(
-                    id int,
-                     username varchar(20),
-                     email varchar(30),
-                     userPassword varchar(20),
-                     firstname varchar(20),
-                     lastname varchar(20),
-                     numberOfDeliveries int,
-                     class varchar(10),
-                     primary key (id)
+    id int,
+    username varchar(30),
+    email varchar(40),
+    userPassword varchar(30),
+    firstname varchar(30),
+    lastname varchar(30),
+    numberOfDeliveries int,
+    class varchar(10),
+    primary key (id)
 );
 
-create table ordering(
-        id int,
-        delivery varchar(60),
-        userID int,
-        product varchar(15),
-        quantity int,
-        price double,
-        currentStatus varchar(15),
-        PRIMARY KEY (id),
-        FOREIGN KEY (userID) REFERENCES user(id)
-);
 
-create table delivery(
+
+CREATE TABLE `delivery` (
     id int,
     userID int,
-    shop varchar(20) NOT NULL,
+    shop varchar(30),
     deliveryDate date,
     deliveryTime time,
     PRIMARY KEY (id),
-    FOREIGN KEY (userID) REFERENCES user(id)
+    FOREIGN KEY (userID) REFERENCES user (id)
 );
 
-INSERT INTO campusdeliverydata.user (id,username, email, userPassword, firstname, lastname, numberOfDeliveries, class) VALUES ('srotoc20','iLoveStella','srotoc20@htl-kaindorf.at','Tobias','Schroettner',1, 'chif20');
+
+
+create table ordering(
+    id int,
+    delivery int,
+    userID int,
+    product varchar(50),
+    quantity int,
+    price double,
+    currentStatus varchar(15),
+    PRIMARY KEY (id),
+    FOREIGN KEY (userID) REFERENCES user(id),
+    FOREIGN KEY (delivery) REFERENCES delivery(id)
+);
+
+
+
+
 
 
 
