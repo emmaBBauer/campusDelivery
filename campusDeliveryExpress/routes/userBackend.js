@@ -4,19 +4,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
+const connection_1 = require("../connection");
 let router = express_1.default.Router();
-const mysql = require('mysql2');
-const connection = mysql.createConnection({
-    host: 'localhost',
-    user: 'campus',
-    password: 'campusDelivery'
-});
-connection.connect();
+connection_1.connection.connect();
 router.get('/', (req, res) => {
-    connection.query('SELECT * FROM user', function (err, result, fields) {
-        console.log(result);
-        res.send(result);
+    connection_1.connection.query('use campusdeliverydata');
+    connection_1.connection.query('SELECT * FROM campusdeliverydata.user', function (err, result, fields) {
+        let x = JSON.stringify(result);
+        console.log(x);
+        res.send(x);
     });
 });
 module.exports = router;
-connection.end();
