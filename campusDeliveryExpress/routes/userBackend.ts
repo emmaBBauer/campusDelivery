@@ -1,4 +1,5 @@
 import express ,{Request, Response} from "express";
+import {FieldPacket, QueryError, RowDataPacket} from "mysql2";
 
 let router = express.Router();
 
@@ -15,7 +16,7 @@ connection.connect();
 
 
 router.get('/', (req:Request, res:Response) => {
-    connection.query('SELECT * FROM user', function (err, result, fields){
+    connection.query('SELECT * FROM user', function (err:QueryError, result:RowDataPacket, fields:FieldPacket){
         console.log(result);
         res.send(result);
     });
