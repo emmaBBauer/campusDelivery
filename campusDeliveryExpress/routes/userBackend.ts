@@ -1,11 +1,10 @@
-import {Request, Response, response} from "express";
+import express ,{Request, Response} from "express";
 
-var express = require('express');
-var router = express.Router();
+let router = express.Router();
 
 
-var mysql      = require('mysql2');
-var connection = mysql.createConnection({
+const mysql      = require('mysql2');
+const connection = mysql.createConnection({
     host     : 'localhost',
     user     : 'campus',
     password : 'campusDelivery'
@@ -13,15 +12,11 @@ var connection = mysql.createConnection({
 
 connection.connect();
 
-// connection.query('SELECT 1 + 1 AS solution', function(err, rows, fields) {
-//     if (err) throw err;
-//     console.log('The solution is: ', rows[0].solution);
-// });
-
 
 
 router.get('/', (req:Request, res:Response) => {
     connection.query('SELECT * FROM user', function (err, result, fields){
+        console.log(result);
         res.send(result);
     });
 });
