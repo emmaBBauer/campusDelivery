@@ -10,7 +10,7 @@ create table user(
     firstname varchar(30),
     lastname varchar(30),
     numberOfDeliveries int,
-    class varchar(10),
+    klasse varchar(10),
     primary key (id)
 );
 
