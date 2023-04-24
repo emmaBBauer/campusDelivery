@@ -7,7 +7,7 @@ const express_1 = __importDefault(require("express"));
 const connection_1 = require("../connection");
 let router = express_1.default.Router();
 connection_1.connection.connect();
-router.get('/', (req, res) => {
+router.get('/getAll', (req, res) => {
     connection_1.connection.query('use campusdeliverydata');
     connection_1.connection.query('SELECT * FROM campusdeliverydata.user', function (err, result, fields) {
         let x = JSON.stringify(result);
@@ -19,9 +19,7 @@ router.post('/register', (req, res) => {
     connection_1.connection.query('use campusdeliverydata');
     let oldID;
     connection_1.connection.query(`SELECT * FROM campusdeliverydata.user WHERE username =  "${req.body.username}" OR email = "${req.body.email}"`, function (err, result, field) {
-        // let x = JSON.stringify(result);
         let x = result;
-        // console.log(JSON.stringify(result));
         connection_1.connection.query('SELECT MAX(id) as "maxID" FROM campusdeliverydata.user', function (err, result) {
             oldID = result[0].maxID;
             if (x.length == 0) {
@@ -37,6 +35,31 @@ router.post('/register', (req, res) => {
                 return;
             }
         });
+    });
+});
+router.post('/login', (req, res) => {
+    connection_1.connection.query('use campusdeliverydata');
+    let loginUser = req.body;
+    connection_1.connection.query(`SELECT userPassword AS "PW" FROM campusdeliverydata.user WHERE username = "${loginUser.username}"`, function (err, result) {
+        if (result[0] == undefined) {
+            res.send("user does not exist");
+            console.log("user does not exist");
+            return;
+        }
+        console.log(result[0]);
+        if (result[0].PW == loginUser.userPassword) {
+            connection_1.connection.query(`SELECT * FROM campusdeliverydata.user WHERE username = "${loginUser.username}"`, function (err, result) {
+                let response = JSON.stringify(result[0]);
+                console.log(response);
+                res.send(response);
+                return;
+            });
+        }
+        else {
+            res.send("password incorrect");
+            console.log("password incorrect");
+            return;
+        }
     });
 });
 module.exports = router;

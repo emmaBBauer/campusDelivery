@@ -2,12 +2,13 @@ import express ,{Request, Response} from "express";
 import {FieldPacket, QueryError, RowDataPacket} from "mysql2";
 import {connection} from "../connection";
 import {User} from "../../models/User";
+import {Login} from "../../models/Login";
 
 let router = express.Router();
 
 connection.connect();
 
-router.get('/', (req:Request, res:Response) => {
+router.get('/getAll', (req:Request, res:Response) => {
 
     connection.query('use campusdeliverydata');
     connection.query('SELECT * FROM campusdeliverydata.user', function (err:QueryError, result:RowDataPacket, fields:FieldPacket){
@@ -17,18 +18,16 @@ router.get('/', (req:Request, res:Response) => {
     });
 });
 
+
+
 router.post('/register', (req:Request, res:Response) => {
     connection.query('use campusdeliverydata');
 
     let oldID : number;
 
-
     connection.query(`SELECT * FROM campusdeliverydata.user WHERE username =  "${req.body.username}" OR email = "${req.body.email}"`,
         function (err:QueryError, result:RowDataPacket, field:FieldPacket){
-        // let x = JSON.stringify(result);
-
             let x = result as User[];
-            // console.log(JSON.stringify(result));
 
             connection.query('SELECT MAX(id) as "maxID" FROM campusdeliverydata.user', function (err:QueryError, result:RowDataPacket) {
                 oldID = result[0].maxID;
@@ -49,7 +48,41 @@ router.post('/register', (req:Request, res:Response) => {
                 }
             });
         });
+});
 
+
+router.post('/login', (req:Request, res:Response) => {
+    connection.query('use campusdeliverydata');
+
+    let loginUser :Login = req.body as Login;
+
+    connection.query(`SELECT userPassword AS "PW" FROM campusdeliverydata.user WHERE username = "${loginUser.username}"`,
+        function (err:QueryError, result:RowDataPacket){
+
+            if(result[0] == undefined){
+                res.send("user does not exist");
+                console.log("user does not exist");
+                return;
+            }
+
+            console.log(result[0]);
+
+            if(result[0].PW == loginUser.userPassword){
+                connection.query(`SELECT * FROM campusdeliverydata.user WHERE username = "${loginUser.username}"`,
+                    function (err:QueryError, result:RowDataPacket){
+                        let response = JSON.stringify(result[0]);
+                        console.log(response);
+                        res.send(response);
+                        return;
+                    })
+            }
+            else
+            {
+                res.send("password incorrect");
+                console.log("password incorrect");
+                return;
+            }
+        });
 });
 
 
