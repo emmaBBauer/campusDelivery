@@ -46,7 +46,7 @@ router.get('/today', (req:Request, res:Response) => {
             let re = JSON.stringify(result);
 
             if(re.length==2){
-                res.send("empty");
+                res.sendStatus(406);
                 console.log("delivery is empty")
                 return;
             }

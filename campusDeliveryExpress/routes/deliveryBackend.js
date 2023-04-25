@@ -36,7 +36,7 @@ router.get('/today', (req, res) => {
     connection_1.connection.query(`SELECT * FROM campusdeliverydata.delivery WHERE deliveryDate = "${today}"`, function (err, result) {
         let re = JSON.stringify(result);
         if (re.length == 2) {
-            res.send("empty");
+            res.sendStatus(406);
             console.log("delivery is empty");
             return;
         }
