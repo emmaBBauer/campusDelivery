@@ -97,8 +97,12 @@ router.post('/new', (req:Request, res:Response) => {
                     console.log(err);
 
                     if(err==null){
-                        res.sendStatus(201);
-                        return;
+                        connection.query(`SELECT * FROM campusdeliverydata.delivery WHERE id = ${newDelivery.id}`,
+                            function (err:QueryError, result:RowDataPacket){
+
+                                res.send(JSON.stringify(result[0]));
+                                return;
+                            })
                     }
                     else{
                         res.sendStatus(406)

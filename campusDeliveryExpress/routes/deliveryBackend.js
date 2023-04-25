@@ -77,8 +77,10 @@ router.post('/new', (req, res) => {
             VALUES (${newDelivery.id}, ${newDelivery.userID}, "${newDelivery.shop}", DATE('${newDelivery.deliveryDate}'), TIME('${newDelivery.deliveryTime}'))`, function (err, result) {
             console.log(err);
             if (err == null) {
-                res.sendStatus(201);
-                return;
+                connection_1.connection.query(`SELECT * FROM campusdeliverydata.delivery WHERE id = ${newDelivery.id}`, function (err, result) {
+                    res.send(JSON.stringify(result[0]));
+                    return;
+                });
             }
             else {
                 res.sendStatus(406);
