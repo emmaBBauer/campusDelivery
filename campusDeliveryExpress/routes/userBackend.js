@@ -22,13 +22,23 @@ router.post('/register', (req, res) => {
         let x = result;
         connection_1.connection.query('SELECT MAX(id) as "maxID" FROM campusdeliverydata.user', function (err, result) {
             oldID = result[0].maxID;
-            if (x.length == 0) {
-                connection_1.connection.query(`INSERT INTO campusdeliverydata.user (id, username, email, userPassword, firstname, lastname, numberOfDeliveries, klasse)
-                    VALUES (${oldID + 1}, "${req.body.username}", "${req.body.email}", "${req.body.userPassword}", "${req.body.firstname}", "${req.body.lastname}", 0, "${req.body.klasse}")`, function (err) {
-                    console.log(err);
-                });
-                res.sendStatus(201);
-                return;
+            if (err == null) {
+                if (x.length == 0) {
+                    connection_1.connection.query(`INSERT INTO campusdeliverydata.user (id, username, email, userPassword,
+                                                                               firstname, lastname, numberOfDeliveries,
+                                                                               klasse)
+                                          VALUES (${oldID + 1}, "${req.body.username}", "${req.body.email}",
+                                                  "${req.body.userPassword}", "${req.body.firstname}",
+                                                  "${req.body.lastname}", 0, "${req.body.klasse}")`, function (err) {
+                        console.log(err);
+                    });
+                    res.sendStatus(201);
+                    return;
+                }
+                else {
+                    res.sendStatus(406);
+                    return;
+                }
             }
             else {
                 res.sendStatus(406);
@@ -50,9 +60,15 @@ router.post('/login', (req, res) => {
         if (result[0].PW == loginUser.userPassword) {
             connection_1.connection.query(`SELECT * FROM campusdeliverydata.user WHERE username = "${loginUser.username}"`, function (err, result) {
                 let response = JSON.stringify(result[0]);
-                console.log(response);
-                res.send(response);
-                return;
+                if (err == null) {
+                    console.log(response);
+                    res.send(response);
+                    return;
+                }
+                else {
+                    res.sendStatus(406);
+                    return;
+                }
             });
         }
         else {
