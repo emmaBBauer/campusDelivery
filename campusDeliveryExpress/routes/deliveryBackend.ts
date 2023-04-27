@@ -47,7 +47,7 @@ router.get('/today', (req:Request, res:Response) => {
 
             if(err==null){
                 if(re.length==2){
-                    res.sendStatus(406);
+                    res.sendStatus(404);
                     console.log("delivery is empty")
                     return;
                 }
@@ -58,7 +58,7 @@ router.get('/today', (req:Request, res:Response) => {
                 }
             }
             else{
-                res.sendStatus(406);
+                res.sendStatus(400);
                 return;
             }
 

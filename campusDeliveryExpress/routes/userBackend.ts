@@ -69,7 +69,7 @@ router.post('/login', (req:Request, res:Response) => {
         function (err:QueryError, result:RowDataPacket){
 
             if(result[0] == undefined){
-                res.send("user does not exist");
+                res.sendStatus(406);
                 console.log("user does not exist");
                 return;
             }

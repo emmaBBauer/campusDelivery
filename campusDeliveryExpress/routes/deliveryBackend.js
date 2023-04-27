@@ -37,7 +37,7 @@ router.get('/today', (req, res) => {
         let re = JSON.stringify(result);
         if (err == null) {
             if (re.length == 2) {
-                res.sendStatus(406);
+                res.sendStatus(404);
                 console.log("delivery is empty");
                 return;
             }
@@ -48,7 +48,7 @@ router.get('/today', (req, res) => {
             }
         }
         else {
-            res.sendStatus(406);
+            res.sendStatus(400);
             return;
         }
     });

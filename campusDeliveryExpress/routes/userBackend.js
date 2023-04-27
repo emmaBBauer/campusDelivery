@@ -52,7 +52,7 @@ router.post('/login', (req, res) => {
     let loginUser = req.body;
     connection_1.connection.query(`SELECT userPassword AS "PW" FROM campusdeliverydata.user WHERE username = "${loginUser.username}"`, function (err, result) {
         if (result[0] == undefined) {
-            res.send("user does not exist");
+            res.sendStatus(406);
             console.log("user does not exist");
             return;
         }
