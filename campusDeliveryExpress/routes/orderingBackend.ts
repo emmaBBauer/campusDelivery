@@ -6,16 +6,6 @@ let router = express.Router();
 
 connection.connect();
 
-router.get('/getAll', (req:Request, res:Response) => {
-
-    connection.query('use campusdeliverydata');
-    connection.query('SELECT * FROM campusdeliverydata.ordering', function (err:QueryError, result:RowDataPacket, fields:FieldPacket){
-        let x = JSON.stringify(result);
-        console.log(x);
-        res.send(x);
-    });
-});
-
 
 router.post('/new', (req:Request, res:Response) => {
 
@@ -58,6 +48,74 @@ router.post('/setStatus', (req:Request, res:Response) => {
                 console.log(err);
                 return;
             }
+        })
+});
+
+
+
+router.get('/all', (req:Request, res:Response) => {
+
+    let x :Date= new Date();
+    let today:string = x.getFullYear()+"-";
+    if(x.getMonth()<10){
+        let y = x.getMonth()+1;
+        today += "0"+y;
+    }
+    else{
+        let y = x.getMonth()+1;
+        today += y;
+    }
+
+    if(x.getDate()<10){
+        today += "-0"+x.getDate();
+    }
+    else{
+        today += "-"+x.getDate();
+    }
+
+    connection.query('use campusdeliverydata');
+    connection.query(`SELECT * FROM campusdeliverydata.ordering o INNER JOIN campusdeliverydata.delivery d 
+                            ON o.delivery = d.id WHERE d.userID = ${req.query.user} AND d.deliveryDate = "${today}"`,
+        function (err:QueryError, result:RowDataPacket){
+
+            let newJson = JSON.stringify(result);
+
+            if(err==null){
+                if(newJson.length==2){
+                    res.send("leider leer");
+                    return;
+                }
+                else{
+                    res.send(newJson);
+                    return;
+                }
+            }
+            else{
+                console.log(err);
+                res.sendStatus(406);
+                return;
+            }
+        })
+});
+
+
+
+router.get('/getOrder', (req:Request, res:Response) => {
+
+    connection.query('use campusdeliverydata');
+    connection.query(`SELECT * FROM campusdeliverydata.ordering WHERE id = ${req.query.id}`,
+        function (err:QueryError, result:RowDataPacket){
+
+            let x = JSON.stringify(result[0]);
+            if(x==undefined){
+                res.sendStatus(406);
+                return;
+            }
+            else{
+                res.send(x);
+                return;
+            }
+
         })
 });
 

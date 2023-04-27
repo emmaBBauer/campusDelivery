@@ -94,4 +94,18 @@ router.post('/new', (req, res) => {
         });
     });
 });
+router.get('/getDelivery', (req, res) => {
+    connection_1.connection.query('use campusdeliverydata');
+    connection_1.connection.query(`SELECT * FROM campusdeliverydata.delivery WHERE id = ${req.query.id}`, function (err, result, fields) {
+        let x = JSON.stringify(result[0]);
+        if (x == undefined) {
+            res.sendStatus(406);
+            return;
+        }
+        else {
+            res.send(x);
+            return;
+        }
+    });
+});
 module.exports = router;

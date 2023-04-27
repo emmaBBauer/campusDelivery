@@ -114,9 +114,28 @@ router.post('/new', (req:Request, res:Response) => {
                     else{
                         res.sendStatus(406)
                     }
-
                 });
+        });
+});
 
+
+
+router.get('/getDelivery', (req:Request, res:Response) => {
+
+    connection.query('use campusdeliverydata');
+    connection.query(`SELECT * FROM campusdeliverydata.delivery WHERE id = ${req.query.id}`,
+        function (err:QueryError, result:RowDataPacket, fields:FieldPacket){
+
+            let x = JSON.stringify(result[0]);
+
+            if(x == undefined){
+                res.sendStatus(406);
+                return;
+            }
+            else{
+                res.send(x);
+                return;
+            }
         });
 });
 

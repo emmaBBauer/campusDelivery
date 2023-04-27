@@ -103,6 +103,27 @@ router.post('/login', (req:Request, res:Response) => {
 });
 
 
+
+router.get('/getUser', (req:Request, res:Response) => {
+
+    connection.query('use campusdeliverydata');
+    connection.query(`SELECT username, firstname, lastname FROM campusdeliverydata.user WHERE id = ${req.query.user}`,
+        function (err:QueryError, result:RowDataPacket, fields:FieldPacket){
+
+        let x = JSON.stringify(result[0]);
+
+        if(x == undefined){
+            res.sendStatus(406);
+            return;
+        }
+        else{
+            res.send(x);
+            return;
+        }
+    });
+});
+
+
 module.exports = router;
 
 

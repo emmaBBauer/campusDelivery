@@ -7,14 +7,6 @@ const express_1 = __importDefault(require("express"));
 const connection_1 = require("../connection");
 let router = express_1.default.Router();
 connection_1.connection.connect();
-router.get('/getAll', (req, res) => {
-    connection_1.connection.query('use campusdeliverydata');
-    connection_1.connection.query('SELECT * FROM campusdeliverydata.ordering', function (err, result, fields) {
-        let x = JSON.stringify(result);
-        console.log(x);
-        res.send(x);
-    });
-});
 router.post('/new', (req, res) => {
     connection_1.connection.query('use campusdeliverydata');
     connection_1.connection.query('SELECT MAX(id) AS "max" FROM campusdeliverydata.ordering', function (err, result) {
@@ -42,6 +34,58 @@ router.post('/setStatus', (req, res) => {
         else {
             res.sendStatus(406);
             console.log(err);
+            return;
+        }
+    });
+});
+router.get('/all', (req, res) => {
+    let x = new Date();
+    let today = x.getFullYear() + "-";
+    if (x.getMonth() < 10) {
+        let y = x.getMonth() + 1;
+        today += "0" + y;
+    }
+    else {
+        let y = x.getMonth() + 1;
+        today += y;
+    }
+    if (x.getDate() < 10) {
+        today += "-0" + x.getDate();
+    }
+    else {
+        today += "-" + x.getDate();
+    }
+    connection_1.connection.query('use campusdeliverydata');
+    connection_1.connection.query(`SELECT * FROM campusdeliverydata.ordering o INNER JOIN campusdeliverydata.delivery d 
+                            ON o.delivery = d.id WHERE d.userID = ${req.query.user} AND d.deliveryDate = "${today}"`, function (err, result) {
+        let newJson = JSON.stringify(result);
+        if (err == null) {
+            if (newJson.length == 2) {
+                res.send("leider leer");
+                return;
+            }
+            else {
+                res.send(newJson);
+                return;
+            }
+        }
+        else {
+            console.log(err);
+            res.sendStatus(406);
+            return;
+        }
+    });
+});
+router.get('/getOrder', (req, res) => {
+    connection_1.connection.query('use campusdeliverydata');
+    connection_1.connection.query(`SELECT * FROM campusdeliverydata.ordering WHERE id = ${req.query.id}`, function (err, result) {
+        let x = JSON.stringify(result[0]);
+        if (x == undefined) {
+            res.sendStatus(406);
+            return;
+        }
+        else {
+            res.send(x);
             return;
         }
     });
