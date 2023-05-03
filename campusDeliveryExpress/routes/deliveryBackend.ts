@@ -44,6 +44,7 @@ router.get('/today', (req:Request, res:Response) => {
         function (err:QueryError, result:RowDataPacket){
 
             let re = JSON.stringify(result);
+            
 
             if(err==null){
                 if(re.length==2){

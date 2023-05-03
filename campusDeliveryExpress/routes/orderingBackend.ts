@@ -14,8 +14,8 @@ router.post('/new', (req:Request, res:Response) => {
         function (err:QueryError, result:RowDataPacket){
             let newIp = result[0].max+1;
 
-            connection.query(`INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus) 
-                        VALUES (${newIp}, ${req.body.delivery}, ${req.body.user}, '${req.body.product}', ${req.body.quantity}, ${req.body.price}, 'waiting')`,
+            connection.query(`INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus, notes) 
+                        VALUES (${newIp}, ${req.body.delivery}, ${req.body.user}, '${req.body.product}', ${req.body.quantity}, ${req.body.price}, 'waiting', '${req.body.notes}')`,
                 function (err:QueryError, result:RowDataPacket){
 
                     if(err==null){
@@ -73,8 +73,10 @@ router.get('/all', (req:Request, res:Response) => {
         today += "-"+x.getDate();
     }
 
+    console.log(today);
+
     connection.query('use campusdeliverydata');
-    connection.query(`SELECT * FROM campusdeliverydata.ordering o INNER JOIN campusdeliverydata.delivery d 
+    connection.query(`SELECT o.* FROM campusdeliverydata.ordering o INNER JOIN campusdeliverydata.delivery d 
                             ON o.delivery = d.id WHERE d.userID = ${req.query.user} AND d.deliveryDate = "${today}"`,
         function (err:QueryError, result:RowDataPacket){
 

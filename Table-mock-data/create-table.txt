@@ -36,6 +36,7 @@ create table ordering(
     quantity int,
     price double,
     currentStatus varchar(15),
+    notes varchar(200),
     PRIMARY KEY (id),
     FOREIGN KEY (userID) REFERENCES user(id),
     FOREIGN KEY (delivery) REFERENCES delivery(id)

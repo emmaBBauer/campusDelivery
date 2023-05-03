@@ -11,8 +11,8 @@ router.post('/new', (req, res) => {
     connection_1.connection.query('use campusdeliverydata');
     connection_1.connection.query('SELECT MAX(id) AS "max" FROM campusdeliverydata.ordering', function (err, result) {
         let newIp = result[0].max + 1;
-        connection_1.connection.query(`INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus) 
-                        VALUES (${newIp}, ${req.body.delivery}, ${req.body.user}, '${req.body.product}', ${req.body.quantity}, ${req.body.price}, 'waiting')`, function (err, result) {
+        connection_1.connection.query(`INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity, price, currentStatus, notes) 
+                        VALUES (${newIp}, ${req.body.delivery}, ${req.body.user}, '${req.body.product}', ${req.body.quantity}, ${req.body.price}, 'waiting', '${req.body.notes}')`, function (err, result) {
             if (err == null) {
                 res.sendStatus(201);
             }
@@ -55,8 +55,9 @@ router.get('/all', (req, res) => {
     else {
         today += "-" + x.getDate();
     }
+    console.log(today);
     connection_1.connection.query('use campusdeliverydata');
-    connection_1.connection.query(`SELECT * FROM campusdeliverydata.ordering o INNER JOIN campusdeliverydata.delivery d 
+    connection_1.connection.query(`SELECT o.* FROM campusdeliverydata.ordering o INNER JOIN campusdeliverydata.delivery d 
                             ON o.delivery = d.id WHERE d.userID = ${req.query.user} AND d.deliveryDate = "${today}"`, function (err, result) {
         let newJson = JSON.stringify(result);
         if (err == null) {
