@@ -35,7 +35,6 @@ router.post('/new', (req:Request, res:Response) => {
 router.post('/setStatus', (req:Request, res:Response) => {
 
     connection.query('use campusdeliverydata');
-    let i = req.query.status;
 
     connection.query(`UPDATE campusdeliverydata.ordering SET currentStatus='${req.query.status}' WHERE id=${req.body.orderId}`,
         function (err:QueryError, result:RowDataPacket){

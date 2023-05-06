@@ -21,8 +21,8 @@ router.get('/getAll', (req:Request, res:Response) => {
 
 
 router.post('/register', (req:Request, res:Response) => {
-    connection.query('use campusdeliverydata');
 
+    connection.query('use campusdeliverydata');
     let oldID : number;
 
     connection.query(`SELECT * FROM campusdeliverydata.user WHERE username =  "${req.body.username}" OR email = "${req.body.email}"`,
