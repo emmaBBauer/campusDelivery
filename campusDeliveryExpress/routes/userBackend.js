@@ -36,7 +36,8 @@ router.post('/register', (req, res) => {
                     return;
                 }
                 else {
-                    res.sendStatus(406);
+                    res.sendStatus(405);
+                    console.log("Username oder Email existiert bereits");
                     return;
                 }
             }
