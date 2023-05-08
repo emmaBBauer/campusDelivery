@@ -21,4 +21,18 @@ router.get('/getAll', (req, res) => {
         }
     });
 });
+router.get('/getProducts', (req, res) => {
+    connection_1.connection.query('use campusdeliverydata');
+    connection_1.connection.query(`SELECT product FROM campusdeliverydata.products WHERE shopid = ${req.query.shop}`, function (err, result) {
+        if (JSON.stringify(result).length == 2) {
+            res.sendStatus(406);
+            console.log("datenbank leer");
+            return;
+        }
+        else {
+            res.send(JSON.stringify(result));
+            return;
+        }
+    });
+});
 module.exports = router;
