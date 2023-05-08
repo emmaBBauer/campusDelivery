@@ -43,6 +43,13 @@ create table ordering(
 );
 
 
+CREATE TABLE shops (
+    id int,
+    name varchar(50),
+    PRIMARY KEY (id)
+);
+
+
 
 
 

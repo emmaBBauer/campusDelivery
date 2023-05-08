@@ -38,3 +38,17 @@ INSERT INTO campusdeliverydata.ordering (id, delivery, userID, product, quantity
 VALUES (5, 5, 5, 'Salat mit Pommes', 10, 34.25, 'declined', 'Einmal döner mit alles');
 
 
+
+INSERT INTO campusdeliverydata.shops (id, name)
+VALUES (1, 'Billa');
+INSERT INTO campusdeliverydata.shops (id, name)
+VALUES (2, 'Spar');
+INSERT INTO campusdeliverydata.shops (id, name)
+VALUES (3, 'Hofer');
+INSERT INTO campusdeliverydata.shops (id, name)
+VALUES (4, 'MC Donalds');
+INSERT INTO campusdeliverydata.shops (id, name)
+VALUES (5, 'Mac & Sven');
+INSERT INTO campusdeliverydata.shops (id, name)
+VALUES (6, 'Döner/Pizza');
+
