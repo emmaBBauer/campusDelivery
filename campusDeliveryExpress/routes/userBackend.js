@@ -72,7 +72,7 @@ router.post('/login', (req, res) => {
             });
         }
         else {
-            res.send("password incorrect");
+            res.sendStatus(405);
             console.log("password incorrect");
             return;
         }

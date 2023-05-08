@@ -29,7 +29,8 @@ router.post('/register', (req:Request, res:Response) => {
         function (err:QueryError, result:RowDataPacket, field:FieldPacket){
             let x = result as User[];
 
-            connection.query('SELECT MAX(id) as "maxID" FROM campusdeliverydata.user', function (err:QueryError, result:RowDataPacket) {
+            connection.query('SELECT MAX(id) as "maxID" FROM campusdeliverydata.user',
+                function (err:QueryError, result:RowDataPacket) {
                 oldID = result[0].maxID;
 
                 if(err==null) {
@@ -90,12 +91,11 @@ router.post('/login', (req:Request, res:Response) => {
                             res.sendStatus(406);
                             return;
                         }
-
                     })
             }
             else
             {
-                res.send("password incorrect");
+                res.sendStatus(405);
                 console.log("password incorrect");
                 return;
             }
