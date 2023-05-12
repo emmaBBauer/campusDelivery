@@ -52,3 +52,17 @@ VALUES (5, 'Mac & Sven');
 INSERT INTO campusdeliverydata.shops (id, name)
 VALUES (6, 'Döner/Pizza');
 
+
+INSERT INTO campusdeliverydata.products (shopid, product, price)
+VALUES (1, 'Semmel', 12);
+INSERT INTO campusdeliverydata.products (shopid, product, price)
+VALUES (1, 'Wurst', 13.13);
+INSERT INTO campusdeliverydata.products (shopid, product, price)
+VALUES (1, 'Apfel', 1.1);
+INSERT INTO campusdeliverydata.products (shopid, product, price)
+VALUES (2, 'TTT', 11.10);
+INSERT INTO campusdeliverydata.products (shopid, product, price)
+VALUES (2, 'Pudding', 333);
+INSERT INTO campusdeliverydata.products (shopid, product, price)
+VALUES (2, 'testPudding', 1.001);
+

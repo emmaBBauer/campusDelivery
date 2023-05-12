@@ -51,13 +51,12 @@ CREATE TABLE shops (
 
 
 CREATE TABLE products (
-    shopid int,
-    product varchar(50),
-    price double,
-    PRIMARY KEY (product),
-    FOREIGN KEY (shopid) REFERENCES shops(id)
+                          shopid int,
+                          product varchar(50),
+                          price double,
+                          PRIMARY KEY (product,shopid),
+                          FOREIGN KEY (shopid) REFERENCES shops(id)
 );
-
 
 
 
