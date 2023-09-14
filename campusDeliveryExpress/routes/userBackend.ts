@@ -77,9 +77,14 @@ router.post('/login', (req:Request, res:Response) => {
                 return;
             }
 
+            console.log(loginUser)
             console.log(result[0]);
+            console.log(loginUser.userPassword)
+            if(result[0].PW === loginUser.userPassword){
+                console.log("ok")
+            }
 
-            if(result[0].PW == loginUser.userPassword){
+            if(result[0].PW === loginUser.userPassword){
                 connection.query(`SELECT * FROM campusdeliverydata.user WHERE username = "${loginUser.username}"`,
                     function (err:QueryError, result:RowDataPacket){
                         let response = JSON.stringify(result[0]);
